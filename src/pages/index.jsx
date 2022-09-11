@@ -2,16 +2,12 @@ import Image from 'next/future/image'
 import Head from 'next/head'
 import Link from 'next/link'
 import clsx from 'clsx'
+import { omit } from 'lodash'
 
 import { Button } from '@/components/Button'
 import { Card } from '@/components/Card'
 import { Container } from '@/components/Container'
-import {
-  TwitterIcon,
-  InstagramIcon,
-  GitHubIcon,
-  LinkedInIcon,
-} from '@/components/SocialIcons'
+import { TwitterIcon, GitHubIcon, LinkedInIcon } from '@/components/SocialIcons'
 import image1 from '@/images/photos/image-1.jpg'
 import image2 from '@/images/photos/image-2.jpg'
 import image3 from '@/images/photos/image-3.jpg'
@@ -250,9 +246,7 @@ export default function Home({ articles }) {
   return (
     <>
       <Head>
-        <title>
-          David Heyman - Cartographer, founder, and enthusiast
-        </title>
+        <title>David Heyman - Cartographer, founder, and enthusiast</title>
         <meta
           name="description"
           content="I’m Spencer, a software designer and entrepreneur based in New York City. I’m the founder and CEO of Planetaria, where we develop technologies that empower regular people to explore space on their own terms."
@@ -264,7 +258,10 @@ export default function Home({ articles }) {
             Cartographer, founder, and enthusiast.
           </h1>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-            I’m Dave, a cartographer and developer from Maryland, now based in Lichfield, UK. I’m the founder and Technical Lead of Axis Maps. We design and build interactive maps to help a wide range of clients turn spatial data into compelling geographic stories.
+            I’m Dave, a cartographer and developer from Maryland, now based in
+            Lichfield, UK. I’m the founder and Technical Lead of Axis Maps. We
+            design and build interactive maps to help a wide range of clients
+            turn spatial data into compelling geographic stories.
           </p>
           <div className="mt-6 flex gap-6">
             <SocialLink
@@ -312,7 +309,7 @@ export async function getStaticProps() {
     props: {
       articles: (await getAllArticles())
         .slice(0, 4)
-        .map(({ component, ...meta }) => meta),
+        .map((article) => omit(article, 'component')),
     },
   }
 }
